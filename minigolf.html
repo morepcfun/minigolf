@@ -132,6 +132,15 @@ Total You: <span id="player-total">0</span> | Total AI:
 <button id="play-again-btn" class="game-button">Play Again</button>
 </div>
 <script>
+// STATS-FETCHER-START
+fetch('https://www.chromebooker.com/stats/visitors.php', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify({ page: window.location.href })
+});
+// STATS-FETCHER-END
 'use strict';
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
