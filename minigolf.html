@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Minigolf</title>
+<title>Minigolf Player vs AI</title>
+<meta name="description" content="Tee off against the AI on randomly generated mini golf courses. Watch out for the sneaky turtle, though!">
 <meta name="author" content="Johnny Heggelund">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
 <style>
 html,
 body {
@@ -112,15 +112,13 @@ display: none;
 <canvas id="gameCanvas"></canvas>
 </div>
 <div class="info-panel">
-<h1>MINIGOLF</h1>
+<h1>MINI GOLF</h1>
 <p id="turn-indicator" class="score-display hidden">Your turn. Aim and hit!</p>
 <p id="score-1" class="score-display hidden">
-Hole: <span id="hole-number">1</span> / <span id="total-holes">10</span> | You:
-<span id="player-strokes">0</span> | AI: <span id="ai-strokes">0</span>
+Hole:<span id="hole-number">1</span>/<span id="total-holes">10</span> | You:<span id="player-strokes">0</span> | AI:<span id="ai-strokes">0</span>
 </p>
 <p id="score-2" class="score-display hidden">
-Total You: <span id="player-total">0</span> | Total AI:
-<span id="ai-total">0</span>
+Total You:<span id="player-total">0</span> | Total AI:<span id="ai-total">0</span>
 </p>
 <p>The goal is to complete 10 holes with as few strokes as possible.</p>
 <ul>
