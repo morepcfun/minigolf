@@ -27,7 +27,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      /* padding: 20px; <-- Removed this to fix the margin issue */
       box-sizing: border-box;
       height: 100%;
     }
@@ -257,7 +257,7 @@
       playerBall.inHole = true;
       aiBall.inHole = true;
       updateUI();
-      setTimeout(() => startTransition(true), 2000);
+      setTimeout(startTransition, 2000);
     }
 
     function startTransition() {
@@ -801,6 +801,7 @@
     canvas.addEventListener('mousedown', (e) => {
       if (gameState === 'PLAYER_TURN') {
         shooting.active = true;
+        // The aiming line will start from the ball
         shooting.x = playerBall.x;
         shooting.y = playerBall.y;
       }
@@ -816,17 +817,22 @@
       updateUI();
       ui.turn.innerText = 'Shooting...';
 
-      const dist = Math.sqrt((mousePos.x - playerBall.x) ** 2 + (mousePos.y - playerBall.y) ** 2);
-      const power = Math.min(dist / 10, CONSTANTS.PLAYER_MAX_POWER);
-      const angle = Math.atan2(mousePos.y - playerBall.y, mousePos.x - playerBall.x);
+      const dx = mousePos.x - playerBall.x;
+      const dy = mousePos.y - playerBall.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
 
-      playerBall.dx = Math.cos(angle) * power;
-      playerBall.dy = Math.sin(angle) * power;
+      if (dist > 0) { // Avoid division by zero
+        const power = Math.min(dist / 10, CONSTANTS.PLAYER_MAX_POWER);
+        // Set velocity by normalizing the direction vector and scaling by power
+        playerBall.dx = (dx / dist) * power;
+        playerBall.dy = (dy / dist) * power;
+      }
     });
 
     canvas.addEventListener('mousemove', (e) => {
       if (shooting.active) {
         const mousePos = getMousePos(e);
+        // The aiming line will end at the mouse cursor
         shooting.x = mousePos.x;
         shooting.y = mousePos.y;
       }
